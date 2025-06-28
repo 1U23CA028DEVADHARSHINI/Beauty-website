@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakeUpWithMe — Create Account</title>
+    <style>
+        /* Reset default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(120deg, #FFD6D6, #FFF1F1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .registration-card {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            padding: 35px 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .registration-card h1 {
+            color: #E94E77;
+            margin-bottom: 10px;
+        }
+
+        .registration-card p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin: 12px 0 5px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #f3f3f3;
+            border-radius: 12px;
+            outline: none;
+            transition: 0.3s ease;
+            background: #fafafa;
+        }
+
+        input:focus, select:focus {
+            border-color: #E94E77;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(233, 78, 119, 0.1);
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .checkbox-container input {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .btn {
+            background-color: #E94E77;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #d83165;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: #E94E77;
+            border: 2px solid #E94E77;
+        }
+
+        .btn-cancel:hover {
+            background: #E94E77;
+            color: white;
+        }
+
+        .login-link {
+            margin-top: 15px;
+            display: block;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #E94E77;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="registration-card">
+    <h1>Join MakeUpWithMe</h1>
+    <p>Create your free account to get skin-perfecting makeup or skincare Products!</p>
+
+    <form onsubmit="return validateForm()" action="signup.html">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" name="fullname" placeholder="e.g. Emma Watson">
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob">
+
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender">
+            <option value="">Select your gender</option>
+            <option>Female</option>
+            <option>Male</option>
+            <option>Non-binary</option>
+            <option>Prefer not to say</option>
+        </select>
+
+        <label for="skinType">Skin Type</label>
+        <select id="skinType" name="skinType">
+            <option value="">Select skin type</option>
+            <option>Normal</option>
+            <option>Dry</option>
+            <option>Oily</option>
+            <option>Combination</option>
+            <option>Sensitive</option>
+        </select>
+
+
+        <label for="phno">Mobile Number</label>
+        <input type="number" id="phno" name="phno" placeholder="10-digit number">
+
+        <label for="email">Email Address</label>
+        <input type="text" id="email" name="email" placeholder="you@example.com">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Min 6 characters">
+
+        <button class="btn" type="submit">Sign Up</button>
+        <button class="btn btn-cancel" type="reset">Cancel</button>
+
+        <span class="login-link">Already have an account? <a href="login.html">Login here</a></span>
+        <p id="errorMsg" class="error"></p>
+    </form>
+</div>
+
+<script>
+function validateForm() {
+    let name = document.getElementById("fullname").value.trim();
+    let phno = document.getElementById("phno").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let dob = document.getElementById("dob").value;
+    let skinType = document.getElementById("skinType").value;
+    let error = "";
+
+    if (!/^[A-Za-z\s]{3,}$/.test(name)) {
+        error = "Full Name must be at least 3 letters long and contain only alphabets.";
+    } else if (!dob) {
+        error = "Please select your Date of Birth.";
+    } else if (skinType === "") {
+        error = "Please select your skin type.";
+    } else if (!/^\d{10}$/.test(phno)) {
+        error = "Mobile number must be exactly 10 digits.";
+    } else if (!/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+        error = "Please enter a valid email address.";
+    } else if (!/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/.test(password)) {
+        error = "Password must include an uppercase letter, a number, and a special character.";
+    }
+
+    document.getElementById("errorMsg").textContent = error;
+    return error === ""; // Only submit if no errors
+}
+</script>
+
+</body>
+</html>
